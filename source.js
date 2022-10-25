@@ -6,6 +6,7 @@ const O_STATE = 2;
 const playerFactory = function(name_p, state_p) {
     let name = name_p;
     let state = state_p;
+
     const getName = () => name;
     const setName = (n) => {name = n};
     const getState = () => state;
@@ -27,6 +28,9 @@ const Gameboard = (function() {
         [0, 0, 0],
         [0, 0, 0]
     ]
+
+    // This is used to pause the game when a draw or win is reached
+    let inPlay = true;
 
     let currentTurn = 0;
     let currentPlayer = pOne;
@@ -51,6 +55,9 @@ const Gameboard = (function() {
     }
 
     const makeMove = (position) => {
+        if(inPlay == false) {
+            return;
+        }
         if(updateBoard(position, currentPlayer) != 1){
             currentTurn++;
             drawState(position);
@@ -74,31 +81,100 @@ const Gameboard = (function() {
     // Return player object on win
     const checkWin = () => {
         // Horizontal
-        if((board[0][0] == board[0][1] && board[0][1] == board[0][2]) && board[0][0] != 0) return board[0][0] == pOne.getState() ? pOne : pTwo;
-        if((board[1][0] == board[1][1] && board[1][1] == board[1][2]) && board[1][0] != 0) return board[1][0] == pOne.getState() ? pOne : pTwo;
-        if((board[2][0] == board[2][1] && board[2][1] == board[2][2]) && board[2][0] != 0) return board[2][0] == pOne.getState() ? pOne : pTwo;
+        if((board[0][0] == board[0][1] && board[0][1] == board[0][2]) && board[0][0] != 0) {highlight(0); return board[0][0] == pOne.getState() ? pOne : pTwo;}
+        if((board[1][0] == board[1][1] && board[1][1] == board[1][2]) && board[1][0] != 0) {highlight(1); return board[1][0] == pOne.getState() ? pOne : pTwo;}
+        if((board[2][0] == board[2][1] && board[2][1] == board[2][2]) && board[2][0] != 0) {highlight(2); return board[2][0] == pOne.getState() ? pOne : pTwo;}
 
         // Vertical
-        if((board[0][0] == board[1][0] && board[1][0] == board[2][0]) && board[0][0] != 0) return board[0][0] == pOne.getState() ? pOne : pTwo;
-        if((board[0][1] == board[1][1] && board[1][1] == board[2][1]) && board[0][1] != 0) return board[0][1] == pOne.getState() ? pOne : pTwo;
-        if((board[0][2] == board[1][2] && board[1][2] == board[2][2]) && board[0][2] != 0) return board[0][2] == pOne.getState() ? pOne : pTwo;
+        if((board[0][0] == board[1][0] && board[1][0] == board[2][0]) && board[0][0] != 0) {highlight(3); return board[0][0] == pOne.getState() ? pOne : pTwo;}
+        if((board[0][1] == board[1][1] && board[1][1] == board[2][1]) && board[0][1] != 0) {highlight(4); return board[0][1] == pOne.getState() ? pOne : pTwo;}
+        if((board[0][2] == board[1][2] && board[1][2] == board[2][2]) && board[0][2] != 0) {highlight(5); return board[0][2] == pOne.getState() ? pOne : pTwo;}
 
         // Diagonal
-        if((board[0][0] == board[1][1] && board[1][1] == board[2][2]) && board[0][0] != 0) return board[0][0] == pOne.getState() ? pOne : pTwo;
-        if((board[2][0] == board[1][1] && board[1][1] == board[0][2]) && board[2][0] != 0) return board[2][0] == pOne.getState() ? pOne : pTwo;
+        if((board[0][0] == board[1][1] && board[1][1] == board[2][2]) && board[0][0] != 0) {highlight(6); return board[0][0] == pOne.getState() ? pOne : pTwo;}
+        if((board[2][0] == board[1][1] && board[1][1] == board[0][2]) && board[2][0] != 0) {highlight(7); return board[2][0] == pOne.getState() ? pOne : pTwo;}
 
         return 1;
+    }
+
+    const highlight = (winPosition) => {
+        const boxes = new Array(3);
+        switch(winPosition){
+            case 0: 
+                boxes[0] = document.querySelector('[data-box="0"]');
+                boxes[1] = document.querySelector('[data-box="1"]');
+                boxes[2] = document.querySelector('[data-box="2"]');
+                break;
+
+            case 1:
+                boxes[0] = document.querySelector('[data-box="3"]');
+                boxes[1] = document.querySelector('[data-box="4"]');
+                boxes[2] = document.querySelector('[data-box="5"]');
+                break;
+
+            case 2:
+                boxes[0] = document.querySelector('[data-box="6"]');
+                boxes[1] = document.querySelector('[data-box="7"]');
+                boxes[2] = document.querySelector('[data-box="8"]');
+                break;
+
+            case 3:
+                boxes[0] = document.querySelector('[data-box="0"]');
+                boxes[1] = document.querySelector('[data-box="3"]');
+                boxes[2] = document.querySelector('[data-box="6"]');
+                break;
+
+            case 4:
+                boxes[0] = document.querySelector('[data-box="1"]');
+                boxes[1] = document.querySelector('[data-box="4"]');
+                boxes[2] = document.querySelector('[data-box="7"]');
+                break;
+
+            case 5:
+                boxes[0] = document.querySelector('[data-box="2"]');
+                boxes[1] = document.querySelector('[data-box="5"]');
+                boxes[2] = document.querySelector('[data-box="8"]');
+                break;
+
+            case 6:
+                boxes[0] = document.querySelector('[data-box="0"]');
+                boxes[1] = document.querySelector('[data-box="4"]');
+                boxes[2] = document.querySelector('[data-box="8"]');
+                break;
+            
+            case 7:
+                boxes[0] = document.querySelector('[data-box="2"]');
+                boxes[1] = document.querySelector('[data-box="4"]');
+                boxes[2] = document.querySelector('[data-box="6"]');
+                break;
+            
+            case 8:
+                const drawBoxes = document.querySelectorAll('.game-box');
+                drawBoxes.forEach(box => {
+                    box.classList.add('draw');
+                });
+                break;
+                
+            default: 
+                break;
+        }
+        boxes.forEach(box => {
+            box.classList.add('win');
+        });
     }
 
     const playerWin = (player) => {
         // Logic for when someone wins
         let x = player.getName();
         console.log(player.getName(), 'has won!!');
+        inPlay = false;
     }
 
     const playerDraw = () => {
         console.log('current turn: ', currentTurn);
         console.log('its a draw :(');
+        highlight(8);
+        inPlay = false;
     }
 
     const drawState = (position) => {
@@ -113,11 +189,17 @@ const Gameboard = (function() {
     const reset = () => {
         currentTurn = 0;
         currentPlayer = pOne;
+        inPlay = true;
         for(let i = 0; i < 9; i++){
             board[~~(i / 3)][i % 3] = 0;
             let boxElement = document.querySelector(`[data-box="${i}"]`);
             boxElement.innerHTML = '';
         }
+        const boxes = document.querySelectorAll('.game-box');
+        boxes.forEach(box => {
+            box.classList.remove('win');
+            box.classList.remove('draw');
+        });
     }
 
     // Add event listeners
@@ -182,15 +264,6 @@ const Gameboard = (function() {
 
 Gameboard.pOne.setName('anthony');
 Gameboard.pTwo.setName('sasha');
-
-// Gameboard.updateBoard(3, Gameboard.pTwo);
-// Gameboard.updateBoard(4, Gameboard.pTwo);
-// Gameboard.updateBoard(5, Gameboard.pTwo);
-
-// let winner = Gameboard.checkWin();
-// console.log(winner.getName());
-
-// console.log(Gameboard.getBoard());
 
 // DRAW CONDITION
 // Gameboard.makeMove(4); 

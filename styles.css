@@ -4,6 +4,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-family: Roboto;
 }
 
 .game-box {
@@ -28,4 +29,12 @@ body {
     justify-content: center;
     align-content: center;
     gap: 3rem;
+}
+
+.win {
+    background-color: hsl(120, 22%, 63%);
+}
+
+.draw {
+    background-color: rgb(194, 134, 134);
 }
