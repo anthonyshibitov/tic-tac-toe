@@ -1,3 +1,31 @@
 body {
-    color: red;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.game-box {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-box-container {
+    display: flex;
+}
+
+.game-container {
+    
+}
+
+.player-name-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 3rem;
 }
