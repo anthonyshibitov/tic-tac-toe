@@ -154,7 +154,7 @@ const Gameboard = (function() {
                     box.classList.add('draw');
                 });
                 break;
-                
+
             default: 
                 break;
         }
@@ -248,11 +248,62 @@ const Gameboard = (function() {
     const playerOneBtn = document.querySelector('[data-name="1"]');
     playerOneBtn.addEventListener('click', () => {
         console.log('p 1');
+        const modalElement = document.querySelector('.modal-container');
+        modalElement.classList.add('show');
+        const playerNameText = document.querySelector('.player-prompt');
+        playerNameText.innerHTML = 'Change name of ' + pOne.getName(); 
+        playerNameText.setAttribute('data-player', 1);
     });
 
     const playerTwoBtn = document.querySelector('[data-name="2"]');
     playerTwoBtn.addEventListener('click', () => {
         console.log('p 2');
+        const modalElement = document.querySelector('.modal-container');
+        modalElement.classList.add('show');
+        const playerNameText = document.querySelector('.player-prompt');
+        playerNameText.innerHTML = 'Change name of ' + pTwo.getName(); 
+        playerNameText.setAttribute('data-player', 2);
+    });
+
+    const modalContainer = document.querySelector('.modal-container');
+    modalContainer.addEventListener('click', (e) => {
+        if(e.target.id == 'modal-container'){
+            modalContainer.classList.remove('show');
+        }
+    });
+
+    const changeBtn = document.querySelector('#change-btn');
+    changeBtn.addEventListener('click', () => {
+        const playerNameText = document.querySelector('.player-prompt');
+        const playerNewName = document.querySelector('#playername');
+        if(playerNameText.getAttribute('data-player') == 1) {
+            pOne.setName(playerNewName.value);
+        } else {
+            pTwo.setName(playerNewName.value);
+        }
+        const playerOne = document.querySelector('[data-name="1"]');
+        playerOne.innerHTML = pOne.getName();
+        const playerTwo = document.querySelector('[data-name="2"]');
+        playerTwo.innerHTML = pTwo.getName();
+
+        const modalContainer = document.querySelector('.modal-container');
+        modalContainer.classList.remove('show');
+    });
+
+    const playBtn = document.querySelector('#play');
+    playBtn.addEventListener('click', () => {
+        const welcomeElement = document.querySelector('.welcome');
+        welcomeElement.style.display = 'none';
+        const gameElement = document.querySelector('.game');
+        gameElement.style.display = 'flex';
+    });
+
+    const menuBtn = document.querySelector('#menu-btn');
+    menuBtn.addEventListener('click', () => {
+        const welcomeElement = document.querySelector('.welcome');
+        welcomeElement.style.display = 'flex';
+        const gameElement = document.querySelector('.game');
+        gameElement.style.display = 'none';
     })
 
     return {
@@ -262,8 +313,8 @@ const Gameboard = (function() {
     }
 })();
 
-Gameboard.pOne.setName('anthony');
-Gameboard.pTwo.setName('sasha');
+Gameboard.pOne.setName('Player One');
+Gameboard.pTwo.setName('Player Two');
 
 // DRAW CONDITION
 // Gameboard.makeMove(4); 

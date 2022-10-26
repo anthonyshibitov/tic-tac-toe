@@ -1,12 +1,20 @@
 body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     font-family: Roboto;
 }
 
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.btn {
+    border-radius: 5px;
+    padding: 16px 32px;
+    border: none;
+    box-shadow: 4px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* ----- GAME CONTAINER ----- */
 .game-box {
     width: 100px;
     height: 100px;
@@ -20,15 +28,31 @@ body {
     display: flex;
 }
 
-.game-container {
-    
+.button-container {
+    display: flex;
+    gap: 32px;
+    margin: 16px;
+}
+
+.game {
+    display: none;
+    height: 100vh;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 32px;
 }
 
 .player-name-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-content: center;
-    gap: 3rem;
+    gap: 6rem;
+}
+
+.player-name {
+    font-weight: 700;;
 }
 
 .win {
@@ -38,3 +62,66 @@ body {
 .draw {
     background-color: rgb(194, 134, 134);
 }
+/* -------------------------- */
+
+/* ----- WELCOME CONTAINER ----- */
+.welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#play {
+    width: min-content;
+}
+/* ----------------------------- */
+
+/* ----- MODAL CONTAINER ----- */
+.modal-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-container.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal {
+    padding: 32px;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 4px 2px 5px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+.player-prompt {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+#playername {
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 8px;
+}
+/* --------------------------- */

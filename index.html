@@ -12,27 +12,43 @@
     <script src="source.js" defer></script>
 </head>
 <body>
-    <div class="player-name-container">
-        <div class="player-name" data-name="1">p one</div>
-        <div class="player-name" data-name="2">p two</div>
+    <div class="welcome">
+        <h1>Tic-Tac-Toe</h1>
+        <input type="button" value="Play" id="play" class="btn">
     </div>
-    <div class="game-container">
-        <div class="game-box-container">
-            <div class="game-box" data-box="0"></div>
-            <div class="game-box" data-box="1"></div>
-            <div class="game-box" data-box="2"></div>
+    <div class="game">
+        <div class="player-name-container">
+            <div class="player-name" data-name="1">Player One</div>
+            <div class="player-name" data-name="2">Player Two</div>
         </div>
-        <div class="game-box-container">
-            <div class="game-box" data-box="3"></div>
-            <div class="game-box" data-box="4"></div>
-            <div class="game-box" data-box="5"></div>
+        <div class="game-container">
+            <div class="game-box-container">
+                <div class="game-box" data-box="0"></div>
+                <div class="game-box" data-box="1"></div>
+                <div class="game-box" data-box="2"></div>
+            </div>
+            <div class="game-box-container">
+                <div class="game-box" data-box="3"></div>
+                <div class="game-box" data-box="4"></div>
+                <div class="game-box" data-box="5"></div>
+            </div>
+            <div class="game-box-container">
+                <div class="game-box" data-box="6"></div>
+                <div class="game-box" data-box="7"></div>
+                <div class="game-box" data-box="8"></div>
+            </div>
         </div>
-        <div class="game-box-container">
-            <div class="game-box" data-box="6"></div>
-            <div class="game-box" data-box="7"></div>
-            <div class="game-box" data-box="8"></div>
+        <div class="button-container">
+            <input type="button" value="Reset" id="reset-btn" class="btn">
+            <input type="button" value="Menu" id="menu-btn" class="btn">
         </div>
     </div>
-    <input type="button" value="Reset" id="reset-btn">
+    <div class="modal-container" id="modal-container">
+        <div class="modal">
+            <p class="player-prompt">T</p>
+            <input type="text" name="playername" id="playername">
+            <input type="button" value="Change" id="change-btn" class="btn">
+        </div>
+    </div>
 </body>
 </html>
